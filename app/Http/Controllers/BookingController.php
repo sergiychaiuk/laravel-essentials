@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Booking;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -42,11 +43,23 @@ class BookingController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Response
+     * @return RedirectResponse|Response
      */
     public function store(Request $request)
     {
-        //
+        $id = DB::table('bookings')->insertGetId([
+            'room_id' => $request->input('room_id'),
+            'start' => $request->input('start'),
+            'end' => $request->input('end'),
+            'is_reservation' => $request->input('is_reservation', false),
+            'is_paid' => $request->input('is_paid', false),
+            'notes' => $request->input('notes'),
+        ]);
+        DB::table('bookings_users')->insert([
+            'booking_id' => $id,
+            'user_id' => $request->input('user_id'),
+        ]);
+        return redirect()->action('BookingController@index');
     }
 
     /**
