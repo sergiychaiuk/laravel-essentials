@@ -86,9 +86,9 @@ class BookingController extends Controller
         $rooms = DB::table('rooms')->get()->pluck('number', 'id');
         $bookingsUser = DB::table('bookings_users')->where('booking_id', $booking->id)->first();
         return view('bookings.edit')
+            ->with('bookingsUser', $bookingsUser)
             ->with('users', $users)
             ->with('rooms', $rooms)
-            ->with('bookingsUser', $bookingsUser)
             ->with('booking', $booking);
     }
 
