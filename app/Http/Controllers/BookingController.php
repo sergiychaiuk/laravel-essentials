@@ -123,10 +123,12 @@ class BookingController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Booking $booking
-     * @return Response
+     * @return RedirectResponse|Response
      */
     public function destroy(Booking $booking)
     {
-        //
+        DB::table('bookings_users')->where('booking_id', $booking->id)->delete();
+        DB::table('bookings')->where('id', $booking->id)->delete();
+        return redirect()->action('BookingController@index');
     }
 }
