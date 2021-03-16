@@ -27,11 +27,15 @@ class BookingController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return Application|Factory|View
      */
     public function create()
     {
-        //
+        $users = DB::table('users')->get()->pluck('name', 'id')->prepend('none');
+        $rooms = DB::table('rooms')->get()->pluck('number', 'id');
+        return view('bookings.create')
+            ->with('users', $users)
+            ->with('rooms', $rooms);
     }
 
     /**
