@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
@@ -43,7 +44,7 @@ class BookingController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return RedirectResponse|Response
+     * @return Redirector|RedirectResponse|Response
      */
     public function store(Request $request)
     {
@@ -66,11 +67,11 @@ class BookingController extends Controller
      * Display the specified resource.
      *
      * @param Booking $booking
-     * @return Response
+     * @return Application|Factory|Response|View
      */
     public function show(Booking $booking)
     {
-        //
+        return view('bookings.show', ['booking' => $booking]);
     }
 
     /**
