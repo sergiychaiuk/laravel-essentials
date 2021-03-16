@@ -3,20 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Booking;
-use DB;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class BookingController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return Application|Factory|Response|View
      */
     public function index()
     {
-        DB::table('bookings')->get()->dd();
+        $bookings = DB::table('bookings')->get();
+        return view('bookings.index')
+            ->with('bookings', $bookings);
     }
 
     /**
