@@ -21,7 +21,7 @@ class BookingController extends Controller
      */
     public function index()
     {
-        $bookings = Booking::paginate(1);
+        $bookings = Booking::with(['room.roomType', 'users:name'])->paginate(1);
         return view('bookings.index')
             ->with('bookings', $bookings);
     }
