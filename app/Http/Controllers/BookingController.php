@@ -103,6 +103,15 @@ class BookingController extends Controller
      */
     public function update(Request $request, Booking $booking)
     {
+        $validateData = $request->validate([
+            'start' => 'required|date',
+            'end' => 'required|date',
+            'room_id' => 'required|exists:rooms,id',
+            'user_id' => 'required|exists:users,id',
+            'is_paid' => 'nullable',
+            'notes' => 'present',
+            'is_reservation' => 'required'
+        ]);
 //        DB::table('bookings')
 //            ->where('id', $booking->id)
 //            ->update([
@@ -113,14 +122,14 @@ class BookingController extends Controller
 //                'is_paid' => $request->input('is_paid', false),
 //                'notes' => $request->input('notes'),
 //            ]);
-        $booking->fill($request->input());
+        $booking->fill($validateData);
         $booking->save();
 //        DB::table('bookings_users')
 //            ->where('booking_id', $booking->id)
 //            ->update([
 //                'user_id' => $request->input('user_id'),
 //            ]);
-        $booking->users()->sync([$request->input('user_id')]);
+        $booking->users()->sync($validateData['user_id']);
         return redirect()->action('BookingController@index');
     }
 
