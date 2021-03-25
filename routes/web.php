@@ -31,3 +31,5 @@ Route::get('/rooms/{roomType?}', 'ShowRoomsController');
 //Route::put('/bookings/{booking}', 'BookingController@update');
 //Route::delete('/bookings/{booking}', 'BookingController@destroy');
 Route::resource('bookings', 'BookingController');
+
+Route::resource('room_types', 'RoomTypeController');
