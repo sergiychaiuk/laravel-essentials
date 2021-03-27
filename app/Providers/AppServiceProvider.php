@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Libraries\Notifications;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -15,8 +16,8 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
-        $this->app->bind('App\Libraries\Notifications', function ($app) {
-            return new \App\Libraries\Notifications();
+        $this->app->bind('App\Libraries\NotificationsInterface', function ($app) {
+            return new Notifications();
         });
     }
 

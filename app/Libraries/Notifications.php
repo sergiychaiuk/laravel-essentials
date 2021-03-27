@@ -2,7 +2,7 @@
 
 namespace App\Libraries;
 
-class Notifications {
+class Notifications implements NotificationsInterface{
     public function send() {
         var_dump('notify');
     }
