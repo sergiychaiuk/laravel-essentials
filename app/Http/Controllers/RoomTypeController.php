@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\RoomType;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 
 class RoomTypeController extends Controller
 {
@@ -15,6 +17,7 @@ class RoomTypeController extends Controller
      */
     public function index()
     {
+        Cache::get('key');
         return view('roomTypes.index')->with('roomTypes', RoomType::paginate());
     }
 
@@ -70,7 +73,8 @@ class RoomTypeController extends Controller
      */
     public function update(Request $request, RoomType $roomType)
     {
-        $roomType->picture = $request->file('picture')->store('public');
+        //$roomType->picture = $request->file('picture')->store('public');
+        $roomType->picture = Storage::putFile('public', $request->file('picture'));
         $roomType->save();
         return redirect()->action('RoomTypeController@index');
     }
