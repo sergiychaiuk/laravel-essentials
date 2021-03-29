@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Booking;
 use App\Libraries\NotificationsInterface;
 use Illuminate\Console\Command;
+use App\Notifications\Reservation;
 
 //use Facades\App\Libraries\Notifications;
 
@@ -61,20 +62,21 @@ class EmailReservationsCommand extends Command
         $bar = $this->output->createProgressBar($bookings->count());
         $bar->start();
         foreach ($bookings as $booking) {
-            $this->processBooking();
+            $this->processBooking($booking);
             $bar->advance();
         }
         $bar->finish();
         $this->comment('Command completed!');
     }
 
-    public function processBooking() {
+    public function processBooking($booking) {
         if ($this->option('dry-run')) {
             $this->info('Would process booking');
         } else {
+            $booking->notify(new Reservation('Mark Martin'));
             //$this->error('Nothing happened');
             //$this->notify->send();
-            $this->notify->send();
+            //$this->notify->send();
             //Notifications::send();
         }
     }
