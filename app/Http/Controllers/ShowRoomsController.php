@@ -18,14 +18,16 @@ class ShowRoomsController extends Controller
      * @param Request $request
      * @return Application|Factory|JsonResponse|Response|View
      */
-    public function __invoke(Request $request, $roomType = null)
+    public function __invoke(Request $request, \App\RoomType $roomType/*\App\RoomType $roomType = null string $name, $roomType = null*/)
     {
 //        if (isset($roomType)) {
 //            $rooms = Room::where('room_type_id', '!=', $roomType)->get();
 //        } else {
 //            $rooms = Room::get();
 //        }
-        $rooms = Room::byType($roomType)->get();
+        //dd($request->name);
+        //dd($roomType);
+        $rooms = Room::byType($roomType->id)->get();
         return view('rooms.index', ['rooms' => $rooms]);
     }
 }

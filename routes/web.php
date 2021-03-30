@@ -19,10 +19,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/test', function () { return "Goodbye"; });
+Route::get('/test', function () { return "Goodbye"; })->middleware('\App\Http\Middleware\CheckQueryParam');
 
+//Route::get('/rooms/{name}/{roomType?}', 'ShowRoomsController')->where('name', '[A-Za-z]+');
 Route::get('/rooms/{roomType?}', 'ShowRoomsController');
-
 //Route::get('/bookings', 'BookingController@index');
 //Route::get('/bookings/create', 'BookingController@create');
 //Route::post('/bookings', 'BookingController@store');
