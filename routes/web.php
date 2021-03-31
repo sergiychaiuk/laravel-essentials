@@ -19,7 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/test', function () { return "Goodbye"; })->middleware('\App\Http\Middleware\CheckQueryParam');
+Route::get('/test', function () { return "Goodbye"; })->middleware('auth');
+//Route::get('/test', function () { return "Goodbye"; })->middleware('\App\Http\Middleware\CheckQueryParam');
 
 //Route::get('/rooms/{name}/{roomType?}', 'ShowRoomsController')->where('name', '[A-Za-z]+');
 Route::get('/rooms/{roomType?}', 'ShowRoomsController');
